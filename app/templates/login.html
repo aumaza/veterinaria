@@ -2,35 +2,59 @@
 {% block title %}Veterinaria - Ingreso{% endblock %}
 {% block content %}
 
-<!-- Modal -->
-  <div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-         
-        </div>
-        <div class="modal-body">
-          <form action="" method="POST">
-            <div class="form-group">
-              <input type="email" class="form-control" id="user" name="user" placeholder="Ingrese su email">
-            </div>
-            <div class="form-group">
-              <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Ingrese su password">
+      <div class="jumbotron">
+
+          <div class="row">
+            <div class="col-sm-6">
+              <img src="static/img/pets.jpg" class="img-responsive img-thumbnail" alt="Pets" width="550" height="750">
             </div>
 
-            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Aceptar</button>
-            <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Cambiar de Usuario</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cerrar</button>
+            <div class="col-sm-6">
+
+              <div id="head">
+                <h2><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Clínica Veterinaria</h2>    
+                <p>Ingresá tus datos.</p>
+              </div><hr>
+              
+                <form action="" method="POST">
+                  <div class="form-group">
+                    <input type="email" class="form-control" id="user" name="user" placeholder="Ingrese su email">
+                  </div>
+                  
+                  <div class="form-group">
+                    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Ingrese su password">
+                  </div>
+
+                  <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Aceptar</button>
+                  <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Cambiar de Usuario</button>
+                </form>
+            </div>
+          </div>
+      </div>
+
+      <!-- bags stack-->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-6">
+       <div class="jumbotron">
+          <div id="head"><h3 align="center"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Registrate!</h3></div><hr>
+          <p align="justify">Registrándote podrás solicitar turnos online y seguir la historia clínica de tu mascota.</p>
+          <p align="center"><img src="static/img/pets-clinic.png" class="img-responsive margin" alt="Pets-Clinic" width="550" height="750"></p>
         </div>
       </div>
       
-    </div>
-  </div>
+           
+      <div class="col-sm-6">
+         <div class="jumbotron">
+          <div id="head"><h3 align="center"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Siempre Online</h3></div><hr>
+          <p align="justify">Siempre podrás acceder desde cualquier pc o dispositivo. En tu casa o en el trabajo</p>
+          <p align="center"><img src="static/img/pets-online.jpg" class="img-responsive margin" alt="Pets-Online" width="550" height="750"></p><br><br>
+        </div>
+      
+      </div>
+    </div> 
+ </div>
+  
+
 
 {% endblock %}

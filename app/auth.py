@@ -36,22 +36,21 @@ def login():
 def logout():
 	logout_user()
 	flash('Ha salido del sistema satisfactoriamente', category='success')
-
+	return redirect(url_for('auth.login'))
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
 def sign_up():
 	if request.method == 'POST':
 		name = request.form.get('name')
 		email = request.form.get('email')
+		user_type = request.form.get('user_type')
+		cellphone = request.form.get('cellphone')
+		address = request.form.get('address')
+		localization = request.form.get('localization')	
 		pass_1 = request.form.get('pwd_1')
 		pass_2 = request.form.get('pwd_2')
 		
-		ch = '@'
-		dominio = '_mecon'
-		usr = email.split(ch, 1)[0]
-		usr = usr + dominio
-		print(usr)
-		user = User.query.filter_by(user=usr).first()
+		user = User.query.filter_by(user=email).first()
 
 		if user:
 			flash('Usuario existente', category='error')
@@ -59,12 +58,20 @@ def sign_up():
 			flash('Debe Ingresar un Email', category='error')
 		elif len(name) == 0:
 			flash('Debe ingresar su Nombre', category='error')
+		elif len(user_type) == 0:
+			flash('Debe seleccionar un tipo de usuario', category='error')
+		elif len(cellphone) == 0:
+			flash('Debe ingresar el número de celular', category='error')
+		elif len(address) == 0:
+			flash('Debe ingresar su dirección!', category='error')
+		elif len(localization) == 0:
+			flash('Debe ingresar una localidad!', category='error')
 		elif pass_1 != pass_2:
 			flash('Los Passwords no coinciden. Reintente', category='error')
 		elif len(pass_1) < 8:
 			flash('El Password no puede ser menor a 8 caracteres', category='error')
 		else:
-			new_user = User(name=name, user=usr, email=email, password=generate_password_hash(pass_1, method='sha256'), role=1)
+			new_user = User(name=name, user=email, email=email, cellphone=cellphone, address=address, localization=localization, user_type=user_type, password=generate_password_hash(pass_1, method='sha256'), role=1)
 			db.session.add(new_user)
 			db.session.commit()
 			#login_user(user, remember=True)
