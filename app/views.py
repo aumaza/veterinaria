@@ -27,6 +27,47 @@ def main():
     return render_template('main.html', user=current_user)
 
 
+# =======================================================================
+# LISTAR CLIENTES
+# =======================================================================
+@views.route('/clientes')
+@login_required
+def costumer():
+	costumers = User.query.filter_by(user_type="cliente")
+	count = User.query.filter_by(user_type="cliente").count()
+	return render_template('clientes.html', costumers=costumers, count=count, user=current_user)
+
+
+# =======================================================================
+# LISTAR CLIENTES
+# =======================================================================
+@views.route('/doctores')
+@login_required
+def doctor():
+	doctors = User.query.filter_by(user_type="doctor")
+	count = User.query.filter_by(user_type="doctor").count()
+	return render_template('doctores.html', doctors=doctors, count=count, user=current_user)
+
+# =======================================================================
+# LISTAR CLIENTES
+# =======================================================================
+@views.route('/proovedores')
+@login_required
+def suplier():
+	supliers = User.query.filter_by(user_type="proovedor")
+	count = User.query.filter_by(user_type="proovedor").count()
+	return render_template('proovedores.html', supliers=supliers, count=count, user=current_user)
+
+# =======================================================================
+# LISTAR CLIENTES
+# =======================================================================
+@views.route('/especies')
+@login_required
+def species():
+	animals = Animal.query
+	count = Animal.query.count()
+	return render_template('especies.html', animals=animals, count=count, user=current_user)
+
 
 # =======================================================================
 # EDICION DE DATOS
@@ -37,20 +78,21 @@ def user_bio(id):
 	usr = User.query.get_or_404(id)
 
 	if request.method == 'POST':
-		name = request.form.get('name')
-		email = request.form.get('email')
+		cellphone = request.form.get('cellphone')
+		address = request.form.get('address')
+		localization = request.form.get('localization')
+		user_type = request.form.get('user_type')
 
-		if len(name) == 0 or len(email) == 0:
-			flash('Debe completar los campos!', category='error')
-		elif name == usr.name and email == usr.email:
-			flash('Los datos no serán modificados. Ambos son iguales a los ya registrados!', category='error')
+		if len(cellphone) == 0 or len(address) == 0 or len(localization) == 0 or len(user_type) == 0:
+			flash('Debe completar los campos solicitados!', category='error')
 		else:
-			usr.name = name
-			usr.user = email
-			usr.email = email
+			usr.cellphone = cellphone
+			usr.address = address
+			usr.localization = localization
+			usr.user_type = user_type
 			db.session.add(usr)
 			db.session.commit()
 			flash('Los datos han sido modificados exitosamente', category='success')
-			return redirect(url_for('auth.logout'))
+			return redirect(url_for('views.main'))
 
 	return render_template('user_bio.html', usr=usr, user=current_user)

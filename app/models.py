@@ -26,6 +26,7 @@ class Races(db.Model, UserMixin):
 class Pets(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
 	user_id = db.Column(db.Integer)
+	doctor_id = db.Column(db.Integer)
 	pet_name = db.Column(db.String(100))
 	pet_birth = db.Column(db.String(15))
 	pet_age = db.Column(db.Integer)

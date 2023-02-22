@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% block title %}Clínica Veterinaria - Clientes{% endblock %}
+
+{% block content %}
+  
+  <div class="container-fluid">
+    <div class="jumbotron">
+      <h2><span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Clientes</h2><hr>
+      
+  <table class="display compact" style="width:100%" id="clientesTable">
+    <thead>
+      <tr>
+        <th class='text-nowrap text-center'>Cliente</th>
+        <th class='text-nowrap text-center'>Email</th>
+        <th class='text-nowrap text-center'>Tel. Móvil</th>
+        <th class='text-nowrap text-center'>Dirección</th>
+        <th class='text-nowrap text-center'>Localidad</th>
+        <th class='text-nowrap text-center'>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for costumer in costumers %}
+        <tr>
+          <td align="center">{{ costumer.name }}</td>
+          <td align="center">{{ costumer.email }}</td>
+          <td align="center">{{ costumer.cellphone }}</td>
+          <td align="center">{{ costumer.address }}</td>
+          <td align="center">{{ costumer.localization }}</td>
+          <td class='text-nowrap' align="center">
+              <a href="/turnos/{{ costumer.id }}" class="btn btn-primary "><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Solicitar Turno</a>
+              <a href="/mascotas/{{ costumer.id }}" class="btn btn-warning "><span class="glyphicon glyphicon-piggy-bank" aria-hidden="true"></span> Mascotas</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table><hr>
+  <div class="alert alert-info"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> <strong>Cantidad de Clientes:</strong> {{ count }} </div><hr>
+
+</div>
+</div>
+
+
+{% endblock %}

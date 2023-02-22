@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+{% block title %}Clínica Veterinaria - Doctores{% endblock %}
+
+{% block content %}
+  
+  <div class="container-fluid">
+    <div class="jumbotron">
+      <h2><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Proovedores</h2><hr>
+      
+  <table class="display compact" style="width:100%" id="proovedoresTable">
+    <thead>
+      <tr>
+        <th class='text-nowrap text-center'>Proovedor</th>
+        <th class='text-nowrap text-center'>Email</th>
+        <th class='text-nowrap text-center'>Tel. Móvil</th>
+        <th class='text-nowrap text-center'>Dirección</th>
+        <th class='text-nowrap text-center'>Localidad</th>
+        <th class='text-nowrap text-center'>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for suplier in supliers %}
+        <tr>
+          <td align="center">{{ suplier.name }}</td>
+          <td align="center">{{ suplier.email }}</td>
+          <td align="center">{{ suplier.cellphone }}</td>
+          <td align="center">{{ suplier.address }}</td>
+          <td align="center">{{ suplier.localization }}</td>
+          <td class='text-nowrap' align="center">
+              <a href="/pagos/{{ suplier.id }}" class="btn btn-primary "><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Pagos</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table><hr>
+  <div class="alert alert-info"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> <strong>Cantidad de Proovedores:</strong> {{ count }} </div><hr>
+
+</div>
+</div>
+
+
+{% endblock %}

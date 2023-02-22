@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+{% block title %}Clínica Veterinaria - Doctores{% endblock %}
+
+{% block content %}
+  
+  <div class="container-fluid">
+    <div class="jumbotron">
+      <h2><span class="glyphicon glyphicon-education" aria-hidden="true"></span> Doctores</h2><hr>
+      
+  <table class="display compact" style="width:100%" id="doctoresTable">
+    <thead>
+      <tr>
+        <th class='text-nowrap text-center'>Doctor</th>
+        <th class='text-nowrap text-center'>Email</th>
+        <th class='text-nowrap text-center'>Tel. Móvil</th>
+        <th class='text-nowrap text-center'>Dirección</th>
+        <th class='text-nowrap text-center'>Localidad</th>
+        <th class='text-nowrap text-center'>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for doctor in doctors %}
+        <tr>
+          <td align="center">{{ doctor.name }}</td>
+          <td align="center">{{ doctor.email }}</td>
+          <td align="center">{{ doctor.cellphone }}</td>
+          <td align="center">{{ doctor.address }}</td>
+          <td align="center">{{ doctor.localization }}</td>
+          <td class='text-nowrap' align="center">
+              <a href="/turnos/{{ doctor.id }}" class="btn btn-primary "><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span> Turnos</a>
+              <a href="/pacientes/{{ doctor.id }}" class="btn btn-warning "><span class="glyphicon glyphicon-leaf" aria-hidden="true"></span> Pacientes</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table><hr>
+  <div class="alert alert-info"><span class="glyphicon glyphicon-option-vertical" aria-hidden="true"></span> <strong>Cantidad de Doctores:</strong> {{ count }} </div><hr>
+
+</div>
+</div>
+
+
+{% endblock %}
