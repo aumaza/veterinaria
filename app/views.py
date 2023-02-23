@@ -69,8 +69,34 @@ def species():
 	return render_template('especies.html', animals=animals, count=count, user=current_user)
 
 
+
 # =======================================================================
-# EDICION DE DATOS
+# FORMULARIO NUEVO REGISTRO DE ESPECIE
+# =======================================================================
+@views.route('/nueva-especie', methods=['GET', 'POST'])
+@login_required
+def new_specie():
+	if request.method == 'POST':
+		especie = request.form.get('especie')
+
+		specie = Animal.query.filter_by(specie=especie).first()
+
+		if specie:
+			flash('Especie existente!', category='error')
+		elif len(especie) == 0:
+			flash('Debe completar el campo!', category='error')
+		else:
+			new_specie = Animal(specie = especie)
+			db.session.add(new_specie)
+			db.session.commit()
+			flash('Registro Agregado Satisfactoriamente!', category='success')
+			return redirect(url_for('views.species'))
+
+	return render_template('nueva-especie.html', user=current_user)
+
+
+# =======================================================================
+# FORMULARIO EDICION DE DATOS
 # =======================================================================
 @views.route('/user_bio/<int:id>', methods=['GET', 'POST'])
 @login_required
