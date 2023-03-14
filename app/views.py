@@ -39,7 +39,7 @@ def costumer():
 
 
 # =======================================================================
-# LISTAR CLIENTES
+# LISTAR DOCTORES
 # =======================================================================
 @views.route('/doctores')
 @login_required
@@ -49,7 +49,7 @@ def doctor():
 	return render_template('doctores.html', doctors=doctors, count=count, user=current_user)
 
 # =======================================================================
-# LISTAR CLIENTES
+# LISTAR PROVEEDORES
 # =======================================================================
 @views.route('/proovedores')
 @login_required
@@ -59,7 +59,7 @@ def suplier():
 	return render_template('proovedores.html', supliers=supliers, count=count, user=current_user)
 
 # =======================================================================
-# LISTAR CLIENTES
+# LISTAR ESPECIES
 # =======================================================================
 @views.route('/especies')
 @login_required
@@ -96,7 +96,7 @@ def new_specie():
 
 
 # =======================================================================
-# FORMULARIO EDICION DE DATOS
+# FORMULARIO EDICION DE DATOS DE USUARIO
 # =======================================================================
 @views.route('/user_bio/<int:id>', methods=['GET', 'POST'])
 @login_required
@@ -122,3 +122,9 @@ def user_bio(id):
 			return redirect(url_for('views.main'))
 
 	return render_template('user_bio.html', usr=usr, user=current_user)
+
+
+# =======================================================================
+# FORMULARIO DE CAMBIO DE PASSWORD
+# =======================================================================
+@views.route('/user_password/<int:id>', method=['GET', 'POST'])
