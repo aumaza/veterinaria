@@ -68,6 +68,16 @@ def species():
 	count = Animal.query.count()
 	return render_template('especies.html', animals=animals, count=count, user=current_user)
 
+# =======================================================================
+# LISTAR RAZAS
+# =======================================================================
+@views.route('/razas')
+@login_required
+def races():
+	races = Races.query
+	count = Races.query.count()
+	return render_template('razas.html', races=races, count=count, user=current_user)
+
 
 
 # =======================================================================
@@ -93,6 +103,33 @@ def new_specie():
 			return redirect(url_for('views.species'))
 
 	return render_template('nueva-especie.html', user=current_user)
+
+
+# =======================================================================
+# FORMULARIO NUEVO REGISTRO DE ESPECIE
+# =======================================================================
+@views.route('nueva-raza', methods=['GET', 'POST'])
+@login_required
+def new_race():
+	animals = Animal.query.order_by(Animal.specie.asc())
+
+	if request.method == 'POST':
+		specie = request.form.get('specie')
+		race = request.form.get('raza')
+		raza = Races.query.filter_by(race=race).first()
+
+		if raza:
+			flash('Raza ya cargada!', category='error')		
+		elif len(specie) == 0 or len(race) == 0:
+			flash('Debe seleccionar una Especie o completar el campo raza!', category='error')
+		else:
+			new_race = Races(specie=specie, race=race)
+			db.session.add(new_race)
+			db.session.commit()
+			flash('Registro agregado exitosamente!', category='success')
+			return redirect(url_for('views.races'))
+
+	return render_template('nueva-raza.html', animals=animals, user=current_user)
 
 
 # =======================================================================
@@ -127,4 +164,26 @@ def user_bio(id):
 # =======================================================================
 # FORMULARIO DE CAMBIO DE PASSWORD
 # =======================================================================
-@views.route('/user_password/<int:id>', method=['GET', 'POST'])
+@views.route('/change_password/<int:id>', methods=['GET', 'POST'])
+@login_required
+def user_pass(id):
+	usr = User.query.get_or_404(id)
+
+	if request.method == 'POST':
+		pass_1 = request.form.get('pwd_1')
+		pass_2 = request.form.get('pwd_2')
+
+		if len(pass_1) == 0 or len(pass_2) == 0:
+			flash('Debe Completar los campos de Password!', category='error')
+		elif pass_1 != pass_2:
+			flash('Los Password no coinciden', category='error')
+		elif len(pass_1) < 8 or len(pass_2) < 8:
+			flash('Los Password No pueden tener menos de 8 caracteres!', category='error')
+		else:
+			usr.password = generate_password_hash(pass_1, method='sha256')
+			db.session.add(usr)
+			db.session.commit()
+			flash('Su Password se ha actualizado Exitosamente. Ingrese Nuevamente!', category='success')
+			return redirect(url_for('auth.login'))
+
+	return render_template('change_password.html', user=current_user)

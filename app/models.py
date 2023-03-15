@@ -21,6 +21,7 @@ class Animal(db.Model, UserMixin):
 
 class Races(db.Model, UserMixin):
 	id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+	specie = db.Column(db.String(200))
 	race = db.Column(db.String(500), unique=True)
 
 class Pets(db.Model, UserMixin):
